@@ -1,6 +1,6 @@
 ## Pi-develop
 
-How to develop raspberry pi 4b.
+How to develop Raspberry Pi 4B.
 
 - First of all, you need to go [<u>website</u>](https://www.raspberrypi.com/software/) to download **Raspberry Pi Imager**.
 
