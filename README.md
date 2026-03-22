@@ -34,9 +34,9 @@ network={
 
 - Now, you can insert micro disk into Raspberry Pi and open Raspberry Pi.
 
-I use personal hotpot to connect Raspberry Pi, so that I use Network Analyzer, a tool that can be used to view the IP addresses of connection hotspots, to find Raspberry Pi's IP.
+- I use personal hotpot to connect Raspberry Pi, so that I use Network Analyzer, a tool that can be used to view the IP addresses of connection hotspots, to find Raspberry Pi's IP.
 
-Finally, use terminal to connect Raspberry without Desktop.
+- Finally, use terminal to connect Raspberry without Desktop.
 ```
 ssh pi@172.20.10.7
 ```
