@@ -1,0 +1,3 @@
+# Python dependencies for Raspberry Pi VL53L1X (Adafruit)
+adafruit-blinka
+adafruit-circuitpython-vl53l1x
