@@ -40,3 +40,32 @@ network={
 ```
 ssh pi@172.20.10.7
 ```
+
+This method always fail, therefore, I use network cables, connect one end to the Raspberry Pi and the other end to the computer to carry out network sharing.
+
+Don't forget to open i2c connect,
+```
+sudo raspi-config
+sudo reboot
+```
+
+After connect the Raspberry Pi, we need to configure some necessary environments.
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install auditd -y
+python3 -m venv exp-attack
+source exp-attack/bin/activate
+sudo apt install build-essential -y
+gcc --version
+source exp-attack/bin/activate
+sudo apt update
+sudo apt install i2c-tools python3-smbus -y
+sudo i2cdetect -y 1
+pip3 install adafruit-circuitpython-vl53l1x
+sudo apt install python3-rpi.gpio
+ln -s /usr/lib/python3/dist-packages/RPi /home/pi/exp-attack/lib/python3.13/site-packages/
+python3 -c "import RPi.GPIO; print('OK')"
+```
+
+Now, we can test our code.
