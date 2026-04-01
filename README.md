@@ -69,3 +69,24 @@ python3 -c "import RPi.GPIO; print('OK')"
 ```
 
 Now, we can test our code.
+
+
+## test-v1-replay_zero
+```bash
+./scripts/run_rpi_experiment.sh --mode baseline --duration-sec 30
+./scripts/run_rpi_experiment.sh --mode bias --duration-sec 30
+./scripts/run_rpi_experiment.sh --mode delay --duration-sec 30
+./scripts/run_rpi_experiment.sh --mode replay --duration-sec 40
+./scripts/run_rpi_experiment.sh --mode replay_zero --duration-sec 40
+./scripts/run_rpi_experiment.sh --mode replay_zero --duration-sec 40 --replay-force-start-sec 10 --replay-force-end-sec 20 --replay-force-value 0.0
+```
+
+## test-v2
+```bash
+./scripts/run_rpi_experiment.sh --mode bias --duration-sec 30 \
+  --bias-force-start-sec 10 \
+  --bias-force-end-sec 20 \
+  --attack-interval-ms 1 \
+  --attack-burst-writes 10 \
+  --attack-burst-gap-ms 0
+```
