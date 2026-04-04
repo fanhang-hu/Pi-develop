@@ -42,12 +42,12 @@ sudo docker run --rm -it \
   -v /etc:/host/etc:ro \
   -v /home/pi/test-v3/logs/falco-audit:/captures
   falcosecurity/falco:0.43.0 \
-  falco
-  -o engine.kind=modern_ebpf
-  -o capture.enabled=true
-  -o capture.mode=all_rules
-  -o capture.path_prefix=/captures/cps
-  -o capture.default_duration=40000
+  falco \
+  -o engine.kind=modern_ebpf \
+  -o capture.enabled=true \
+  -o capture.mode=all_rules \
+  -o capture.path_prefix=/captures/cps \
+  -o capture.default_duration=40000 \
 ```
 
 And we need to touch a rule file, for example **cps_rules.yml** in /home/pi/falco/. **I choose not use new rule file**.
