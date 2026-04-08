@@ -24,6 +24,9 @@ docker --version
 sudo docker run --rm hello-world
 ```
 
+-----------------------------------------------------------------------------------------
+**Please click ./falco_replay and use the ability of replay to check whether falco can identify the attacks.**
+
 ```bash
 sudo docker run --rm -it \
   --name falco \
