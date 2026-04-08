@@ -213,3 +213,50 @@ done < sysdig_audit/summary/scap_list.txt
 
 column -s, -t sysdig_audit/summary/event_counts.csv
 ```
+
+--------------------------------------------------------------------------
+Now, we get several .scap file, if we want to use **NodLink** to identify the attacks, we need to transfer these scap files to **.json** format.
+
+First of all, we need to locate to scap,
+```bash
+cd scap
+```
+
+And run the following command in the terminal, remember to update the scap file name,
+```bash
+SCAP=20260403_144034_bias_forced.scap
+USV=scap2json/bias_forced/bias_forced.fields.usv
+JSONL=scap2json/bias_forced/bias_forced.nodlink.jsonl
+JSON=scap2json/bias_forced/bias_forced.nodlink.json
+
+DELIM=$'\x1f'
+FMT="%evt.args${DELIM}%evt.num${DELIM}%evt.rawtime${DELIM}%evt.type${DELIM}%fd.name${DELIM}%proc.cmdline${DELIM}%proc.name${DELIM}%proc.pcmdline${DELIM}%proc.pname"
+
+sysdig -r "$SCAP" -p "$FMT" > "$USV"
+
+jq -Rc '
+split("\u001f") as $f |
+{
+  "evt.args": ($f[0] // ""),
+  "evt.num": (($f[1] // "") | tonumber? // null),
+  "evt.time": (($f[2] // "") | tonumber? // null),
+  "evt.type": ($f[3] // ""),
+  "fd.name": ($f[4] // ""),
+  "proc.cmdline": ($f[5] // ""),
+  "proc.name": ($f[6] // ""),
+  "proc.pcmdline": ($f[7] // ""),
+  "proc.pname": ($f[8] // "")
+}
+' "$USV" > "$JSONL"
+
+jq -s '.' "$JSONL" > "$JSON"
+```
+
+Now, we will get json files and **NodLink** need to use proc.cmdline to identify, so we need to use some commands to grep,
+```bash
+grep '"proc.cmdline"' baseline.nodlink.json | sort -u
+grep '"proc.cmdline"' bias.nodlink.json | sort -u
+grep '"proc.cmdline"' bias_forced.nodlink.json | sort -u
+grep '"proc.cmdline"' delay.nodlink.json | sort -u
+grep '"proc.cmdline"' replay_zero.nodlink.json | sort -u
+```
