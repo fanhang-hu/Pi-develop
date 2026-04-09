@@ -252,6 +252,10 @@ split("\u001f") as $f |
 jq -s '.' "$JSONL" > "$JSON"
 ```
 
+```bash
+jq -c '.[]' bias_forced.json > output.json
+```
+
 Now, we will get json files and **NodLink** need to use proc.cmdline to identify, so we need to use some commands to grep,
 ```bash
 grep '"proc.cmdline"' baseline.nodlink.json | sort -u
